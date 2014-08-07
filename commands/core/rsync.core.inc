@@ -104,7 +104,7 @@ function drush_core_call_rsync($source, $destination, $additional_options = arra
 
 function drush_core_exec_rsync($source, $destination, $options, $additional_options = array(), $live_output = TRUE) {
   $ssh_options = drush_get_option_override($additional_options, 'ssh-options', '');
-  $exec = "rsync -e 'ssh $ssh_options' $options $source $destination";
+  $exec = "rsync -e 'ssh $ssh_options' $options " . drush_escapeshellarg($source) . ' ' . drush_escapeshellarg($destination);
 
   if ($live_output) {
     $exec_result = drush_op_system($exec);
